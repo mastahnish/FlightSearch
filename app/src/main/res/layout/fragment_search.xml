@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.search.SearchFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search"
+        android:layout_margin="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/etOrigin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="36dp"
+        android:inputType="text"
+        android:text="Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etDestination"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="36dp"
+        android:inputType="text"
+        android:text="Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etOrigin" />
+
+    <EditText
+        android:id="@+id/etDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="36dp"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etDestination" />
+
+    <TextView
+        android:id="@+id/adultsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/adults"
+        android:layout_marginStart="36dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/adultsMinus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/adultsMinus"
+        />
+
+    <ImageView
+        android:id="@+id/adultsMinus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/btn_minus"
+        app:layout_constraintTop_toTopOf="@id/adultsPlus"
+        app:layout_constraintEnd_toStartOf="@id/adultsValue"
+        app:layout_constraintBottom_toBottomOf="@id/adultsPlus"
+    />
+
+    <TextView
+        android:id="@+id/adultsValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        tools:text="1"
+        app:layout_constraintBottom_toBottomOf="@+id/adultsPlus"
+        app:layout_constraintEnd_toStartOf="@+id/adultsPlus"
+        app:layout_constraintTop_toTopOf="@+id/adultsPlus"
+        />
+
+    <ImageView
+        android:id="@+id/adultsPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="36dp"
+        android:src="@android:drawable/ic_menu_add"
+        app:layout_constraintTop_toBottomOf="@id/etDate"
+        app:layout_constraintEnd_toEndOf="parent"
+     />
+
+
+    <TextView
+    android:id="@+id/teensLabel"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/teens"
+    android:layout_marginStart="36dp"
+    android:textSize="24sp"
+    app:layout_constraintBottom_toBottomOf="@+id/teensMinus"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="@+id/teensMinus"
+    />
+
+    <ImageView
+        android:id="@+id/teensMinus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/btn_minus"
+        app:layout_constraintTop_toTopOf="@id/teensPlus"
+        app:layout_constraintEnd_toStartOf="@id/teensValue"
+        app:layout_constraintBottom_toBottomOf="@id/teensPlus"
+        />
+
+    <TextView
+        android:id="@+id/teensValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        tools:text="1"
+        app:layout_constraintBottom_toBottomOf="@+id/teensPlus"
+        app:layout_constraintEnd_toStartOf="@+id/teensPlus"
+        app:layout_constraintTop_toTopOf="@+id/teensPlus"
+        />
+
+    <ImageView
+        android:id="@+id/teensPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="36dp"
+        android:src="@android:drawable/ic_menu_add"
+        app:layout_constraintTop_toBottomOf="@id/adultsPlus"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+    <TextView
+        android:id="@+id/childrenLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/children"
+        android:layout_marginStart="36dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/childrenMinus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/childrenMinus"
+        />
+
+    <ImageView
+        android:id="@+id/childrenMinus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/btn_minus"
+        app:layout_constraintTop_toTopOf="@id/childrenPlus"
+        app:layout_constraintEnd_toStartOf="@id/childrenValue"
+        app:layout_constraintBottom_toBottomOf="@id/childrenPlus"
+        />
+
+    <TextView
+        android:id="@+id/childrenValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        tools:text="1"
+        app:layout_constraintBottom_toBottomOf="@+id/childrenPlus"
+        app:layout_constraintEnd_toStartOf="@+id/childrenPlus"
+        app:layout_constraintTop_toTopOf="@+id/childrenPlus"
+        />
+
+    <ImageView
+        android:id="@+id/childrenPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="36dp"
+        android:src="@android:drawable/ic_menu_add"
+        app:layout_constraintTop_toBottomOf="@id/teensPlus"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
