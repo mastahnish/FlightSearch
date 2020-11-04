@@ -6,14 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.search.SearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <Button
         android:id="@+id/searchButton"
+        android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/search"
         android:layout_margin="32dp"
+        android:text="@string/search"
+        android:textSize="20dp"
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -24,7 +26,11 @@
         android:layout_height="wrap_content"
         android:layout_margin="36dp"
         android:inputType="text"
-        android:text="Name"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:hint="@string/origin"
+        android:drawableStart="@drawable/ic_origin"
+        android:drawablePadding="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +42,11 @@
         android:layout_height="wrap_content"
         android:layout_margin="36dp"
         android:inputType="text"
-        android:text="Name"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:hint="@string/destination"
+        android:drawableStart="@drawable/ic_destination"
+        android:drawablePadding="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +58,13 @@
         android:layout_height="wrap_content"
         android:layout_margin="36dp"
         android:inputType="date"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:hint="@string/departure_date"
+        android:focusable="false"
+        android:drawableStart="@drawable/ic_calendar"
+        android:drawablePadding="6dp"
+        android:pointerIcon="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etDestination" />
@@ -56,30 +73,31 @@
         android:id="@+id/adultsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/adults"
         android:layout_marginStart="36dp"
-        android:textSize="24sp"
+        android:text="@string/adults"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/adultsMinus"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/adultsMinus"
-        />
+        app:layout_constraintTop_toTopOf="@+id/adultsMinus" />
 
     <ImageView
         android:id="@+id/adultsMinus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/btn_minus"
-        app:layout_constraintTop_toTopOf="@id/adultsPlus"
-        app:layout_constraintEnd_toStartOf="@id/adultsValue"
+        android:src="@drawable/ic_minus"
         app:layout_constraintBottom_toBottomOf="@id/adultsPlus"
-    />
+        app:layout_constraintEnd_toStartOf="@id/adultsValue"
+        app:layout_constraintTop_toTopOf="@id/adultsPlus" />
 
     <TextView
         android:id="@+id/adultsValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="12dp"
-        tools:text="1"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="0"
         app:layout_constraintBottom_toBottomOf="@+id/adultsPlus"
         app:layout_constraintEnd_toStartOf="@+id/adultsPlus"
         app:layout_constraintTop_toTopOf="@+id/adultsPlus"
@@ -90,98 +108,97 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="36dp"
-        android:src="@android:drawable/ic_menu_add"
-        app:layout_constraintTop_toBottomOf="@id/etDate"
+        android:src="@drawable/ic_add"
         app:layout_constraintEnd_toEndOf="parent"
-     />
+        app:layout_constraintTop_toBottomOf="@id/etDate" />
 
 
     <TextView
-    android:id="@+id/teensLabel"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/teens"
-    android:layout_marginStart="36dp"
-    android:textSize="24sp"
-    app:layout_constraintBottom_toBottomOf="@+id/teensMinus"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="@+id/teensMinus"
-    />
+        android:id="@+id/teensLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:text="@string/teens"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/teensMinus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/teensMinus" />
 
     <ImageView
         android:id="@+id/teensMinus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/btn_minus"
-        app:layout_constraintTop_toTopOf="@id/teensPlus"
-        app:layout_constraintEnd_toStartOf="@id/teensValue"
+        android:src="@drawable/ic_minus"
         app:layout_constraintBottom_toBottomOf="@id/teensPlus"
-        />
+        app:layout_constraintEnd_toStartOf="@id/teensValue"
+        app:layout_constraintTop_toTopOf="@id/teensPlus" />
 
     <TextView
         android:id="@+id/teensValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="12dp"
-        tools:text="1"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="0"
         app:layout_constraintBottom_toBottomOf="@+id/teensPlus"
         app:layout_constraintEnd_toStartOf="@+id/teensPlus"
         app:layout_constraintTop_toTopOf="@+id/teensPlus"
-        />
+       />
 
     <ImageView
         android:id="@+id/teensPlus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="36dp"
-        android:src="@android:drawable/ic_menu_add"
-        app:layout_constraintTop_toBottomOf="@id/adultsPlus"
+        android:src="@drawable/ic_add"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/adultsPlus" />
 
 
     <TextView
         android:id="@+id/childrenLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/children"
         android:layout_marginStart="36dp"
-        android:textSize="24sp"
+        android:text="@string/children"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/childrenMinus"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/childrenMinus"
-        />
+        app:layout_constraintTop_toTopOf="@+id/childrenMinus" />
 
     <ImageView
         android:id="@+id/childrenMinus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/btn_minus"
-        app:layout_constraintTop_toTopOf="@id/childrenPlus"
-        app:layout_constraintEnd_toStartOf="@id/childrenValue"
+        android:src="@drawable/ic_minus"
         app:layout_constraintBottom_toBottomOf="@id/childrenPlus"
-        />
+        app:layout_constraintEnd_toStartOf="@id/childrenValue"
+        app:layout_constraintTop_toTopOf="@id/childrenPlus" />
 
     <TextView
         android:id="@+id/childrenValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="12dp"
-        tools:text="1"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="0"
         app:layout_constraintBottom_toBottomOf="@+id/childrenPlus"
         app:layout_constraintEnd_toStartOf="@+id/childrenPlus"
         app:layout_constraintTop_toTopOf="@+id/childrenPlus"
-        />
+  />
 
     <ImageView
         android:id="@+id/childrenPlus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="36dp"
-        android:src="@android:drawable/ic_menu_add"
-        app:layout_constraintTop_toBottomOf="@id/teensPlus"
+        android:src="@drawable/ic_add"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@id/teensPlus" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

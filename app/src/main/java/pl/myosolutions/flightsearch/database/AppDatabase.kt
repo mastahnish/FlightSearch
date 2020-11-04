@@ -7,10 +7,12 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import pl.myosolutions.flightsearch.Constants
 import pl.myosolutions.flightsearch.models.entities.FlightSearchEntity
+import pl.myosolutions.flightsearch.models.entities.PlaceEntity
 
 @Database(
     entities = [
-    FlightSearchEntity::class
+    FlightSearchEntity::class,
+    PlaceEntity::class
     ], version = 1, exportSchema = true
 )
 
@@ -18,6 +20,8 @@ import pl.myosolutions.flightsearch.models.entities.FlightSearchEntity
 abstract class AppDatabase : RoomDatabase(){
 
     abstract fun flightSearchDao() : FlightSearchDao
+
+    abstract fun placesDao(): PlacesDao
 
     companion object {
 

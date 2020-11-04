@@ -1,7 +1,7 @@
-package pl.myosolutions.flightsearch.models.dto
+package pl.myosolutions.flightsearch.models.dto.flights
 
 import pl.myosolutions.flightsearch.Constants.EMPTY_STRING
-import pl.myosolutions.flightsearch.models.dto.raw.RawFlightDate
+import pl.myosolutions.flightsearch.models.dto.flights.raw.RawFlightDate
 
 data class FlightDate(val raw : RawFlightDate?) {
     val dateOut: String = raw?.dateOut ?: EMPTY_STRING

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.search.SearchFragment">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+
+    <TextView
+        android:id="@+id/tvOrigin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_origin"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_margin="32dp"
+        android:drawablePadding="6dp"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Poznan" />
+
+    <TextView
+        android:id="@+id/tvDestination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:drawableStart="@drawable/ic_destination"
+        android:drawablePadding="6dp"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@id/tvOrigin"
+        tools:text="New York" />
+
+    <TextView
+        android:id="@+id/tvFareClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:drawableStart="@drawable/ic_class"
+        android:drawablePadding="6dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvOrigin"
+        app:layout_constraintEnd_toStartOf="@id/tvInfants"
+        tools:text="Class A" />
+
+    <TextView
+        android:id="@+id/tvInfants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_infant"
+        android:drawablePadding="6dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/tvFareClass"
+        app:layout_constraintTop_toTopOf="@id/tvFareClass"
+        app:layout_constraintEnd_toStartOf="@id/tvDiscount"
+        tools:text="8 infants left" />
+
+    <TextView
+        android:id="@+id/tvDiscount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_discount"
+        android:drawablePadding="6dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/tvInfants"
+        app:layout_constraintTop_toTopOf="@id/tvInfants"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="-50%" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

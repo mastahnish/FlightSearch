@@ -7,4 +7,6 @@ val databaseModule = module {
     single { AppDatabase.getInstance(get()) }
 
     single { get<AppDatabase>().flightSearchDao() }
+
+    single { get<AppDatabase>().placesDao() }
 }

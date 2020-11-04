@@ -10,7 +10,7 @@ val networkModules = module{
     single{ RestApi.buildRetrofit()
             .create(ApiServices::class.java) }
 
-    factory { Services(get(), get()) }
+    factory { Services(get(), get(), get()) }
 }
 
 

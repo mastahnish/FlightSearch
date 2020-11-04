@@ -1,7 +1,7 @@
-package pl.myosolutions.flightsearch.models.dto
+package pl.myosolutions.flightsearch.models.dto.flights
 
 import pl.myosolutions.flightsearch.Constants.EMPTY_STRING
-import pl.myosolutions.flightsearch.models.dto.raw.RawFlightSearch
+import pl.myosolutions.flightsearch.models.dto.flights.raw.RawFlightSearch
 
 data class FlightSearch (val raw : RawFlightSearch) {
     val message: String? = raw.message
@@ -9,7 +9,11 @@ data class FlightSearch (val raw : RawFlightSearch) {
     val serverTimeUTC: String = raw.serverTimeUTC ?: EMPTY_STRING
     val trips: List<FlightTrip> = arrayListOf<FlightTrip>().apply {
         raw?.trips?.forEach {
-            this.add(FlightTrip(it))
+            this.add(
+                FlightTrip(
+                    it
+                )
+            )
         } ?: emptyList<FlightTrip>()
     }
 

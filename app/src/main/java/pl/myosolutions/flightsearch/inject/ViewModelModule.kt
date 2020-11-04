@@ -6,7 +6,7 @@ import pl.myosolutions.flightsearch.ui.flights.FlightsViewModel
 import pl.myosolutions.flightsearch.ui.search.SearchViewModel
 
 val viewModelModule = module {
-    viewModel { FlightsViewModel(get(), get()) }
+    viewModel { FlightsViewModel(get()) }
 
-    viewModel { SearchViewModel(get()) }
+    viewModel { SearchViewModel(get(), get()) }
 }

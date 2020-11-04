@@ -6,4 +6,9 @@
     <string name="adults">Adults</string>
     <string name="teens">Teens</string>
     <string name="children">Children</string>
+    <string name="no_discount">No discount</string>
+    <string name="classFare">Class %s</string>
+    <string name="origin">Origin</string>
+    <string name="destination">Destination</string>
+    <string name="departure_date">Departure date</string>
 </resources>

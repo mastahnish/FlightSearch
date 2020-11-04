@@ -3,7 +3,7 @@ package pl.myosolutions.flightsearch.database
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import pl.myosolutions.flightsearch.extensions.fromJson
-import pl.myosolutions.flightsearch.models.dto.FlightTrip
+import pl.myosolutions.flightsearch.models.dto.flights.FlightTrip
 
 class ListFlightTripConverter {
 

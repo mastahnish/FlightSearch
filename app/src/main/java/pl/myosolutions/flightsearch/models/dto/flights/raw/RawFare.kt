@@ -1,4 +1,4 @@
-package pl.myosolutions.flightsearch.models.dto.raw
+package pl.myosolutions.flightsearch.models.dto.flights.raw
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

@@ -13,7 +13,7 @@ abstract class FlightSearchDao {
     @Insert(onConflict = REPLACE)
     abstract fun saveFlightSearch(flightSearch: FlightSearchEntity)
 
-    @Query("SELECT * FROM flight_search ORDER BY serverTimeUTC DESC LIMIT 1")
+    @Query("SELECT * FROM flight_search WHERE id = 1")
     abstract fun getRecentFlightSearch() : LiveData<FlightSearchEntity>
 
 }

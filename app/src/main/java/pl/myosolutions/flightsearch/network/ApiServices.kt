@@ -1,7 +1,8 @@
 package pl.myosolutions.flightsearch.network
 
 import io.reactivex.Single
-import pl.myosolutions.flightsearch.models.dto.raw.RawFlightSearch
+import pl.myosolutions.flightsearch.models.dto.flights.raw.RawFlightSearch
+import pl.myosolutions.flightsearch.models.dto.places.raw.RawPlacesResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.Url
@@ -9,7 +10,7 @@ import retrofit2.http.Url
 interface ApiServices {
 
     @GET
-    fun fetchDestinations(@Url destinationsUrl : String)
+    fun fetchDestinations(@Url destinationsUrl : String) : Single<RawPlacesResponse>
 
     @GET("Availability?ToUs=AGREED&roundtrip=false&flexdaysout=3&flexdaysin=3&flexdaysbeforeout=3&flexdaysbeforein=3")
     fun fetchFlights(@Query("dateout") departureDate: String,
