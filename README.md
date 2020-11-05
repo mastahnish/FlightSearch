@@ -1,3 +1,3 @@
 # FlightSearch
 
-[![Demo]](https://j.gifs.com/D14xJK.gif)
+[Short demo](https://j.gifs.com/D14xJK.gif)
