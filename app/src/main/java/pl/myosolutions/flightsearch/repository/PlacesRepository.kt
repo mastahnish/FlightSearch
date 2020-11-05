@@ -9,6 +9,9 @@ class PlacesRepository constructor(
         private val executor: AppExecutors,
         private val placesDao:  PlacesDao
     ){
+
+        fun getAllPlaces(): LiveData<List<PlaceEntity>> = placesDao.all()
+
         fun savePlaces(places: List<PlaceEntity>) {
             executor.diskIO().execute {
                 placesDao.run {

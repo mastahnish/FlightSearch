@@ -13,10 +13,7 @@ object Constants {
     object BaseUrl{
         private val locale: Locale = Locale.getDefault()
 
-        fun getBaseUrl() : String  {
-            Log.d("Ryanair","getBaseUrl: $locale")
-           return String.format(locale, API_BASE_URL, locale.language, locale.country)
-        }
+        fun getBaseUrl() : String  = String.format(locale, API_BASE_URL, locale.language, locale.country)
     }
 
     const val ROOM_DB_NAME: String = "ryanair_flights_search.db"
@@ -29,6 +26,8 @@ object Constants {
     const val FILTERED_PRICE_FORMAT: String = "%d %s"
     const val DAY_MONTH_YEAR_FORMAT = "yyyy-MM-dd"
     const val DISCOUNT_FORMAT: String = "-%d"
-    const val SLIDER_FILTER_MIN: String = "150 %s"
-    const val SLIDER_FILTER_MAX: String = "1000 %s"
+    const val MIN_PRICE : Int = 150
+    private const val MAX_PRICE : Int = 1000
+    const val SLIDER_FILTER_MIN: String = "$MIN_PRICE %s"
+    const val SLIDER_FILTER_MAX: String = "$MAX_PRICE %s"
 }

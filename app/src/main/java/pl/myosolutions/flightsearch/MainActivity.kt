@@ -74,5 +74,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        (supportFragmentManager.findFragmentByTag(SearchFragment.TAG) as? SearchFragment)?.let { if(it.isVisible) finish() }
+        super.onBackPressed()
+    }
+
 
 }

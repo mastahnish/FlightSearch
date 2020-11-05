@@ -6,5 +6,6 @@ import pl.myosolutions.flightsearch.models.dto.flights.raw.RawFare
 
 data class Fare (val raw : RawFare?) {
     val amount : Double = raw?.amount ?: EMPTY_DOUBLE
-    val discountInPercent = raw?.discountInPercent ?: EMPTY_INT
+    val discountInPercent : Int = raw?.discountInPercent ?: EMPTY_INT
+    val count : Int = raw?.count ?: EMPTY_INT
 }

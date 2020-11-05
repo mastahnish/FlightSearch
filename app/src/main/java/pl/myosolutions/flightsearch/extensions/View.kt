@@ -13,14 +13,6 @@ fun View.visible() {
     this.visibility = View.VISIBLE
 }
 
-fun View.visibleOrGone(visible: Boolean) {
-    if (visible) {
-        this.visible()
-    } else {
-        this.gone()
-    }
-}
-
 fun View.visibleAnimated() {
     this.animate()
         .alpha(1.0f)

@@ -3,12 +3,15 @@ package pl.myosolutions.flightsearch.ui.search
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.DatePicker
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import io.reactivex.rxkotlin.addTo
@@ -17,19 +20,23 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pl.myosolutions.flightsearch.BaseFragment
 import pl.myosolutions.flightsearch.Constants.DAY_MONTH_YEAR_FORMAT
+import pl.myosolutions.flightsearch.Constants.EMPTY_STRING
 import pl.myosolutions.flightsearch.MainActivity
 import pl.myosolutions.flightsearch.R
-import pl.myosolutions.flightsearch.extensions.observeLiveDataOnce
-import pl.myosolutions.flightsearch.extensions.text
+import pl.myosolutions.flightsearch.extensions.*
+import pl.myosolutions.flightsearch.models.entities.PlaceEntity
 import pl.myosolutions.flightsearch.ui.flights.FlightsFragment
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.NoSuchElementException
 
 
 class SearchFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
 
     private val viewModel: SearchViewModel by viewModel()
-    private val calendar : Calendar = Calendar.getInstance()
+    private val calendar: Calendar = Calendar.getInstance()
+    private var userOrigin: PlaceEntity? = null
+    private var userDestination: PlaceEntity? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,61 +54,127 @@ class SearchFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun downloadAvailablePlaces() {
-        //TODO show splash
-
-        viewModel.downloadAllPlaces().subscribeBy (
-            onSuccess = {
-                //TODO hide splash
-                Log.d("Ryanair", "downloadAllPlaces success")
-            },
-            onError = {
-                //Show error
-                Log.d("Ryanair", "downloadAllPlaces error")
+        observeLiveDataOnce(viewModel.getAllPlaces()){
+            if(it.isNullOrEmpty()){
+                progress_overlay.visible()
+                viewModel.downloadAllPlaces().subscribeBy(
+                    onSuccess = {
+                        progress_overlay.gone()
+                    },
+                    onError = {error ->
+                        progress_overlay.gone()
+                        Toast.makeText(context, String.format(getString(R.string.error_during_data_load), error.message), Toast.LENGTH_LONG).show()
+                    }
+                ).addTo(fragmentDisposables)
             }
-        ).addTo(fragmentDisposables)
+        }
     }
 
-
     private fun setupUI() {
-        etOrigin.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-               observeLiveDataOnce(viewModel.searchPlaces(s.toString())) {
-                   Log.d("Ryanair", "$it")
-               }
-            }
+        etOrigin.run {
+            onlyUppercase()
+            addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(enteredText: Editable?) {
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                    try {
+                        observeLiveDataOnce(viewModel.searchPlaces(enteredText.toString())) {
+                            this@run.apply {
+                                if (enteredText.isNullOrBlank()) {
+                                    hint = getString(R.string.origin)
+                                    tvOriginHint.text = EMPTY_STRING
+                                    userOrigin = null
+                                }else {
+                                    if (it.isNotEmpty()) {
+                                        userOrigin = it.first()
+                                        tvOriginHint.text = userOrigin?.name
+                                    } else {
+                                        error = context.getString(R.string.empty_place)
+                                        tvOriginHint.text = EMPTY_STRING
+                                    }
+                                }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                            }
+                        }
+                    } catch (exception: NoSuchElementException) {
+                        Log.d(TAG, "${exception.message}")
+                    }
 
-        })
-
-        etDestination.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                observeLiveDataOnce(viewModel.searchPlaces(s.toString())) {
-                    Log.d("Ryanair", "$it")
                 }
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            })
+            setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_NEXT) setPlace(etOrigin, userOrigin)
+                return@setOnEditorActionListener false
             }
+            onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus -> if (!hasFocus)  setPlace(etOrigin, userOrigin) }
+        }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        etDestination.run {
+            onlyUppercase()
+            addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(enteredText: Editable?) {
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                    try {
+                        observeLiveDataOnce(viewModel.searchPlaces(enteredText.toString())) {
+                            this@run.apply {
+                                if (enteredText.isNullOrBlank()) {
+                                    hint = getString(R.string.destination)
+                                    tvDestinationHint.text = EMPTY_STRING
+                                    userDestination = null
+                                }else {
+                                    if (it.isNotEmpty()) {
+                                        userDestination = it.first()
+                                        tvDestinationHint.text = userDestination?.name
+                                    } else {
+                                        error = context.getString(R.string.empty_place)
+                                        tvDestinationHint.text = EMPTY_STRING
+                                    }
+                                }
+                            }
+                        }
+                    } catch (exception: NoSuchElementException) {
+                        Log.d(TAG, "${exception.message}")
+                    }
 
-        })
+                }
 
-        etDate.setOnClickListener {
-            DatePickerDialog(
-                requireContext(), this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-            ).show()
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            })
+            setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_NEXT) setPlace(etDestination, userDestination)
+                return@setOnEditorActionListener false
+            }
+            onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus -> if (!hasFocus) setPlace(etDestination, userDestination) }
+        }
+
+        etDate.run {
+            inputType = InputType.TYPE_NULL
+            setOnClickListener {
+                DatePickerDialog(
+                    requireContext(),
+                    this@SearchFragment,
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)
+                ).show()
+            }
         }
 
         adultsPlus.setOnClickListener {
             incrementValue(adultsValue)
+            searchButton.isEnabled = areFieldsValid()
         }
 
         adultsMinus.setOnClickListener {
             decrementValue(adultsValue)
+            searchButton.isEnabled = areFieldsValid()
         }
 
         teensPlus.setOnClickListener {
@@ -122,33 +195,50 @@ class SearchFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
 
 
         searchButton.setOnClickListener {
-            searchButton.isEnabled = false
+            if(!areFieldsValid()){
+                return@setOnClickListener
+            }
 
+            searchButton.isEnabled = false
+            progress_overlay.visible()
+            
             viewModel.search(
                 etDate.text(),
-                "POZ",//etOrigin.text(),
-                "ATH", //etDestination.text(),
+                userOrigin!!.code,
+                userDestination!!.code,
                 adultsValue.text().toInt(),
                 teensValue.text().toInt(),
                 childrenValue.text().toInt()
             ).subscribeBy(
                 onSuccess = {
-                    if(it.isSuccessful()){
-                        Log.d(SearchFragment::class.java.name, "$it" )
-
-                        //navigate to search results
-                        (requireActivity() as MainActivity).replaceFragment(FlightsFragment.newInstance(), FlightsFragment.TAG)
-                    }else{
+                    if (it.isSuccessful()) {
+                        (requireActivity() as MainActivity).replaceFragment(
+                            FlightsFragment.newInstance(),
+                            FlightsFragment.TAG
+                        )
+                    } else {
+                        searchButton.isEnabled = true
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     }
-                    searchButton.isEnabled = true
                 },
                 onError = {
+                    progress_overlay.gone()
                     searchButton.isEnabled = true
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.no_such_connection), Toast.LENGTH_SHORT).show()
                 }
             ).addTo(fragmentDisposables)
         }
+    }
+
+    private fun areFieldsValid(): Boolean = userOrigin!=null && userDestination!=null && etDate.text.isNotEmpty() && adultsValue.text.toString().toInt() > 0
+
+    private fun setPlace(field: EditText, place: PlaceEntity?) {
+        field.run {
+            setText(place?.name ?: EMPTY_STRING)
+            error = null
+        }
+
+       searchButton.isEnabled = areFieldsValid()
     }
 
     private fun decrementValue(value: TextView) {
@@ -159,7 +249,7 @@ class SearchFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun incrementValue(value: TextView) {
-        value.text = (value.text.toString().toInt()+1).toString()
+        value.text = (value.text.toString().toInt() + 1).toString()
     }
 
     companion object {
@@ -168,13 +258,20 @@ class SearchFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
     }
 
     override fun onDateSet(datePicker: DatePicker?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
-         calendar.apply{
+        calendar.apply {
             set(Calendar.YEAR, year)
             set(Calendar.MONTH, monthOfYear)
             set(Calendar.DAY_OF_MONTH, dayOfMonth)
         }
 
-        etDate.setText(SimpleDateFormat(DAY_MONTH_YEAR_FORMAT, Locale.getDefault()).format(calendar.time))
+        etDate.setText(
+            SimpleDateFormat(
+                DAY_MONTH_YEAR_FORMAT,
+                Locale.getDefault()
+            ).format(calendar.time)
+        )
+
+        searchButton.isEnabled = areFieldsValid()
     }
 
 }

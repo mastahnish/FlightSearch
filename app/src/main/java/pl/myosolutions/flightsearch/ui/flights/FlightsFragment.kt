@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.fragment_flights.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pl.myosolutions.flightsearch.BaseFragment
 import pl.myosolutions.flightsearch.Constants.FILTERED_PRICE_FORMAT
+import pl.myosolutions.flightsearch.Constants.MIN_PRICE
 import pl.myosolutions.flightsearch.Constants.SLIDER_FILTER_MAX
 import pl.myosolutions.flightsearch.Constants.SLIDER_FILTER_MIN
 import pl.myosolutions.flightsearch.MainActivity
@@ -57,7 +58,7 @@ class FlightsFragment : BaseFragment(), FlightItemListener, SeekBar.OnSeekBarCha
     private fun observeFlights() {
         observeLiveDataOnce(viewModel.getFlightSearch()) { flightSearch ->
 
-               val searchedFlights = flightSearch.trips.flatMap { flightTrip ->
+                allFlightsFromSearch = flightSearch.trips.flatMap { flightTrip ->
                     updateToolbar(flightTrip.originName, flightTrip.destinationName)
                     updateFilters(flightSearch.currency)
 
@@ -67,20 +68,21 @@ class FlightsFragment : BaseFragment(), FlightItemListener, SeekBar.OnSeekBarCha
                                 flightDate.dateOut,
                                 flight.flightNumber,
                                 flight.duration,
-                                flight.regularFare.fares.first().amount,
+                                flight.regularFare.fares.sumByDouble { fare -> fare.amount.times(fare.count)},
                                 flightSearch.currency,
                                 flightTrip.origin,
                                 flightTrip.destination,
                                 flight.infantsLeft,
                                 flight.regularFare.fareClass,
-                                flight.regularFare.fares.first().discountInPercent
+                                //Summing discount percents up is just for demo purposes as there is no info how we should consider the discount for consecutive fares
+                                flight.regularFare.fares.sumBy{ fare -> fare.discountInPercent}
                             )
                         }
                     }
-                }
+                }.filter { it.amount.toInt() > MIN_PRICE }
 
-            flightsAdapter.updateFlightsData(searchedFlights)
-            allFlightsFromSearch = searchedFlights
+            val filteredFlights = if(slider.progress != MIN_PRICE) allFlightsFromSearch.filter {  it.amount.toInt() > slider.progress } else allFlightsFromSearch
+            flightsAdapter.updateFlightsData(filteredFlights)
         }
     }
 

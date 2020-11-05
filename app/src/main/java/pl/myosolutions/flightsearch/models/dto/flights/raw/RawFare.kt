@@ -10,6 +10,9 @@ data class RawFare(
     val amount : Double,
     @SerializedName("discountInPercent")
     @Expose
-    val discountInPercent : Int
+    val discountInPercent : Int,
+    @SerializedName("count")
+    @Expose
+    val count: Int
 
 )

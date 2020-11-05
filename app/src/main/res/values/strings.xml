@@ -11,4 +11,8 @@
     <string name="origin">Origin</string>
     <string name="destination">Destination</string>
     <string name="departure_date">Departure date</string>
+    <string name="empty_place">No place like this</string>
+    <string name="no_data">No Data</string>
+    <string name="no_such_connection">We do not offer such flight connection</string>
+    <string name="error_during_data_load">Error during data loading: %s</string>
 </resources>

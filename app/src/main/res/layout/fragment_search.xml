@@ -9,26 +9,46 @@
 
     <Button
         android:id="@+id/searchButton"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/search_button_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
         android:text="@string/search"
+        android:enabled="false"
         android:textSize="20dp"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+
+    <TextView
+        android:id="@+id/tvOriginHint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="4dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/darker_gray"
+        android:textAllCaps="true"
+        android:drawableStart="@drawable/ic_origin"
+        android:drawablePadding="6dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/etOrigin"
+        app:layout_constraintStart_toStartOf="@id/etOrigin"
+        app:layout_constraintTop_toTopOf="@id/etOrigin"
+        app:layout_constraintEnd_toEndOf="@id/etOrigin"
+        app:layout_constraintBottom_toBottomOf="@id/etOrigin"/>
+
     <EditText
         android:id="@+id/etOrigin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="36dp"
-        android:inputType="text"
+        android:inputType="textCapCharacters"
         android:textSize="18sp"
         android:textStyle="bold"
         android:hint="@string/origin"
+        android:textAllCaps="true"
         android:drawableStart="@drawable/ic_origin"
         android:drawablePadding="6dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,15 +56,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <TextView
+        android:id="@+id/tvDestinationHint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="4dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/darker_gray"
+        android:textAllCaps="true"
+        android:drawableStart="@drawable/ic_destination"
+        android:drawablePadding="6dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/etDestination"
+        app:layout_constraintStart_toStartOf="@id/etDestination"
+        app:layout_constraintTop_toTopOf="@id/etDestination"
+        app:layout_constraintEnd_toEndOf="@id/etDestination"
+        app:layout_constraintBottom_toBottomOf="@id/etDestination"/>
+
     <EditText
         android:id="@+id/etDestination"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="36dp"
-        android:inputType="text"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:inputType="textCapCharacters"
         android:hint="@string/destination"
+        android:textAllCaps="true"
         android:drawableStart="@drawable/ic_destination"
         android:drawablePadding="6dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +100,6 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:hint="@string/departure_date"
-        android:focusable="false"
         android:drawableStart="@drawable/ic_calendar"
         android:drawablePadding="6dp"
         android:pointerIcon="none"
@@ -199,6 +237,13 @@
         android:src="@drawable/ic_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/teensPlus" />
+
+
+    <include
+        android:id="@+id/progress_overlay"
+        android:visibility="gone"
+        layout="@layout/progress_bar_overlay"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

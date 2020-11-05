@@ -7,5 +7,4 @@ data class RawPlacesResponse(
     @SerializedName("stations")
     @Expose
     val stations: List<RawStation>?
-) {
-}
+)

@@ -11,7 +11,10 @@ import pl.myosolutions.flightsearch.models.entities.FlightSearchEntity
 abstract class FlightSearchDao {
 
     @Insert(onConflict = REPLACE)
-    abstract fun saveFlightSearch(flightSearch: FlightSearchEntity)
+    abstract fun insert(flightSearch: FlightSearchEntity)
+
+    @Query("SELECT * FROM flight_search")
+    abstract fun all() : LiveData<List<FlightSearchEntity>>
 
     @Query("SELECT * FROM flight_search WHERE id = 1")
     abstract fun getRecentFlightSearch() : LiveData<FlightSearchEntity>

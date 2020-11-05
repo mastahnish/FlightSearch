@@ -1,6 +1,5 @@
 package pl.myosolutions.flightsearch.network
 
-import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient

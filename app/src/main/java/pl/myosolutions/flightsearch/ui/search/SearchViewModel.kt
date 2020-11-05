@@ -13,6 +13,8 @@ class SearchViewModel constructor(
     private val placesRepository: PlacesRepository
 ) : BaseViewModel() {
 
+    fun getAllPlaces() = placesRepository.getAllPlaces()
+
     fun downloadAllPlaces() = services.downloadPlaces().subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
 

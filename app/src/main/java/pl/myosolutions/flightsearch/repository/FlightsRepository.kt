@@ -11,7 +11,7 @@ class FlightsRepository constructor(
 ){
     fun saveSearchResult(flightSearchEntity: FlightSearchEntity) {
         executor.diskIO().execute {
-            flightSearchDao.saveFlightSearch(flightSearchEntity)
+            flightSearchDao.insert(flightSearchEntity)
         }
     }
 

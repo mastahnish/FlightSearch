@@ -13,7 +13,7 @@ import pl.myosolutions.flightsearch.models.entities.PlaceEntity
     entities = [
     FlightSearchEntity::class,
     PlaceEntity::class
-    ], version = 1, exportSchema = true
+    ], version = 1, exportSchema = false
 )
 
 @TypeConverters(ListFlightTripConverter::class)

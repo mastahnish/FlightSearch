@@ -1,6 +1,5 @@
 package pl.myosolutions.flightsearch.network
 
-import android.util.Log
 import io.reactivex.Single
 import pl.myosolutions.flightsearch.Constants.DESTINATIONS_URL
 import pl.myosolutions.flightsearch.models.dto.flights.FlightSearch
@@ -17,7 +16,6 @@ class Services constructor(private val apiServices: ApiServices,
     fun downloadPlaces() : Single<PlacesResponse> =
         apiServices.fetchDestinations(DESTINATIONS_URL).flatMap {
             val placesResponse = PlacesResponse(it)
-            Log.d("Ryanair", "places response: $placesResponse")
             placesRepository.savePlaces(placesResponse.stations.map { station -> PlaceEntity(station) })
             Single.just(placesResponse)
         }
