@@ -40,6 +40,7 @@ class FlightDetailsFragment : BaseFragment() {
 
     private fun filterFlightDetails() {
         flightItem.run {
+            tvFlightNumber.text = flightNumber
             tvOrigin.text = origin
             tvDestination.text = destination
             tvDiscount.text = if (discountInPercent > 0) String.format(
